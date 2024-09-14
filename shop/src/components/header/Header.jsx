@@ -9,14 +9,13 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { Button } from "@/components/ui/button";
 import { CgClose } from "react-icons/cg";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Lottie from "lottie-react";
+import menuline from "../../assets/demo.json";
 function Header() {
-  // styled component for link
-
-  const StyledLink = styled.a`
+  const StyledLink = styled.span`
     text-decoration: none;
     color: black; /* Default color of the link */
     transition: all 0.5s ease; /* Smooth transition for hover effect */
@@ -36,17 +35,17 @@ function Header() {
         <div className="flex items-center justify-center gap-2">
           <Drawer direction="left">
             <DrawerTrigger>
-              <div className="flex gap-4">
-                <CiMenuFries className="w-6 h-6" />
+              <div className="flex gap-4 items-center">
+                <CiMenuFries className="w-6 h-6 " />
                 <p className="">Menu</p>
               </div>
             </DrawerTrigger>
             <DrawerContent>
               <DrawerHeader>
                 <DrawerClose className="mb-6 w-fit absolute top-5 right-5 ">
-                  <CgClose className="w-6 h-6" />
+                  <CgClose className="w-6 h-6 transition-transform hover:rotate-180 ease-in duration-300" />
                 </DrawerClose>
-                <DrawerTitle className="flex flex-col gap-7 mt-6 border-t border-black/10 pt-6">
+                <DrawerTitle className="flex flex-col gap-8 mt-6 border-t border-black/10 pt-10">
                   <Link>
                     <StyledLink>Home</StyledLink>
                   </Link>
