@@ -9,11 +9,24 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { FaShoppingCart } from "react-icons/fa";
+
 import { CgClose } from "react-icons/cg";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import Lottie from "lottie-react";
-import menuline from "../../assets/demo.json";
+import { IoSearch } from "react-icons/io5";
+import { FaUser } from "react-icons/fa";
+import styles from "./header.module.css";
+import { Button } from "@/components/ui/button";
+
 function Header() {
   const StyledLink = styled.span`
     text-decoration: none;
@@ -25,22 +38,24 @@ function Header() {
       color: rgba(0, 0, 0, 0.6); /* Change color to gray on hover */
     }
   `;
+
   return (
-    <header className="absolute top-0 left-0 z-50 py-12 px-14 flex justify-between">
-      <div className="flex items-center gap-12">
+    <header className="relative w-full z-50 p-6 md:py-12 md:px-14 flex justify-between ">
+      {/* left */}
+      <div className="flex items-center gap-12 justify-between w-full md:w-fit">
         <div className="">
           <img src="/logo.png" alt="" />
         </div>
-        <div className="block w-[1px] h-full bg-black/20"></div>
+        <div className=" w-[1px] h-full bg-black/20 hidden md:block"></div>
         <div className="flex items-center justify-center gap-2">
           <Drawer direction="left">
             <DrawerTrigger>
               <div className="flex gap-4 items-center">
-                <CiMenuFries className="w-6 h-6 " />
+                <CiMenuFries className="w-6 h-6" />
                 <p className="">Menu</p>
               </div>
             </DrawerTrigger>
-            <DrawerContent>
+            <DrawerContent className="w-[40%] md:w-[unset]">
               <DrawerHeader>
                 <DrawerClose className="mb-6 w-fit absolute top-5 right-5 ">
                   <CgClose className="w-6 h-6 transition-transform hover:rotate-180 ease-in duration-300" />
@@ -52,7 +67,7 @@ function Header() {
                   <Link>
                     <StyledLink>About</StyledLink>
                   </Link>
-                  <Link>
+                  <Link to={"/shop"}>
                     <StyledLink>Shop</StyledLink>
                   </Link>
                   <Link>
@@ -71,6 +86,39 @@ function Header() {
             </DrawerContent>
           </Drawer>
         </div>
+      </div>
+      {/* right */}
+      <div className="hidden md:flex items-center gap-8">
+        <Button className="" variant="ghost">
+          <IoSearch className="w-[25px] h-[25px]" />
+        </Button>
+        <div className="">
+          <DropdownMenu>
+            <DropdownMenuTrigger className="outline-none pointer-events-auto flex items-center w-[40px] h-[40px] justify-center hover:bg-black  duration-300 rounded-full transition-all group">
+              <FaUser
+                className={`w-[20px] h-[20px] outline-none focus-visible:outline-none transition-all duration-300 group-hover:fill-white
+                `}
+              />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align="end"
+              className={styles.DropdownMenuContent}
+            >
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>Profile</DropdownMenuItem>
+              <DropdownMenuItem>Address</DropdownMenuItem>
+              <DropdownMenuItem>Settings</DropdownMenuItem>
+              <DropdownMenuItem>Logout</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+        <Link className="w-[50px] h-[50px] flex items-center justify-center rounded-full bg-black hover:opacity-50 cursor-pointer relative">
+          <FaShoppingCart className="fill-white" />
+          <div className="w-5 h-5 rounded-full bg-white absolute -top-px right-0 flex items-center justify-center text-[0.8rem] font-medium">
+            1
+          </div>
+        </Link>
       </div>
     </header>
   );

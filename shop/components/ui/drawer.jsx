@@ -38,7 +38,7 @@ const DrawerContent = React.forwardRef(
         )}
         {...props}
       >
-        <div className="mx-auto mt-4 h-2 w-[15vw]  dark:bg-slate-800" />
+        <div className="mx-auto mt-4 h-2 w-[15vw] dark:bg-slate-800" />
         {children}
       </DrawerPrimitive.Content>
     </DrawerPortal>
@@ -48,7 +48,7 @@ DrawerContent.displayName = "DrawerContent";
 
 const DrawerHeader = ({ className, ...props }) => (
   <div
-    className={cn("grid gap-1.5 p-4 text-center sm:text-left", className)}
+    className={cn("grid gap-1.5 p-4 sm:text-left overflow-y-scroll", className)}
     {...props}
   />
 );
