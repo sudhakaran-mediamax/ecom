@@ -1,5 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 import { Slider } from "@/components/ui/slider";
+import { useRef, useState } from "react";
 
 const products = {
   Accessories: ["belts", "halts", "socks"],
@@ -9,6 +10,10 @@ const products = {
 };
 
 function FilterProducts() {
+  const [values, setValues] = useState([0, 5000]);
+  const handleChange = (newValue) => {
+    setValues(newValue);
+  };
   return (
     <div className="">
       {/* PRODUCTS */}
@@ -68,9 +73,17 @@ function FilterProducts() {
       {/* Price */}
       <div className="">
         <h3 className="uppercase font-semibold  mb-4">Filter By Price</h3>
-        <div className="flex gap-3">
-          <Slider defaultValue={[100]} max={100} step={1} />
+        <div className="flex gap-3 mt-6">
+          <Slider
+            defaultValue={values}
+            max={5000}
+            step={100}
+            onValueChange={handleChange}
+          />
         </div>
+        <p className="mt-3">
+          Price range between {values && values[0]} to {values && values[1]}
+        </p>
       </div>
     </div>
   );

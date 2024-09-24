@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { useLocation, Link } from "react-router-dom";
 import linkstyle from "./breadcrumbs.module.css";
+
 function Breadcrumbs() {
   const location = useLocation();
   // Split the pathname to create breadcrumb items
@@ -46,7 +47,7 @@ function Breadcrumbs() {
                   }
                 >
                   <Link to={item.link} className={linkstyle.link}>
-                    {item.label}
+                    {item.label.replaceAll("%20", " ")}
                   </Link>
                 </BreadcrumbItem>
               </React.Fragment>

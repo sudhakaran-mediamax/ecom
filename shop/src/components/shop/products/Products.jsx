@@ -28,7 +28,7 @@ function Products() {
           <p>Showing Results</p>
         </div>
       </div>
-      <div className="py-12 px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:gap-12 gap-10">
+      <div className="py-12 px-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 lg:gap-10 2xl:grid-cols-4 md:gap-12 gap-10">
         <ProductThumb />
         <ProductThumb />
         <ProductThumb />
