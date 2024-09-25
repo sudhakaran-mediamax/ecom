@@ -26,8 +26,9 @@ import { IoSearch } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";
 import styles from "./header.module.css";
 import { Button } from "@/components/ui/button";
-
+import { useSelector } from "react-redux";
 function Header() {
+  const { totalItems } = useSelector((state) => state.cart);
   const StyledLink = styled.span`
     text-decoration: none;
     color: black; /* Default color of the link */
@@ -113,10 +114,15 @@ function Header() {
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-        <Link className="w-[50px] h-[50px] flex items-center justify-center rounded-full bg-black hover:opacity-50 cursor-pointer relative">
+        <Link
+          to={"/cart"}
+          className="w-[50px] h-[50px] flex items-center justify-center rounded-full bg-black hover:opacity-50 cursor-pointer relative"
+        >
           <FaShoppingCart className="fill-white" />
-          <div className="w-5 h-5 rounded-full bg-white absolute -top-px right-0 flex items-center justify-center text-[0.8rem] font-medium">
-            1
+          <div className="w-5 h-5 rounded-full bg-white absolute -top-px right-0 flex items-center justify-center text-[0.7rem] font-medium">
+            {totalItems.toString().length > 2
+              ? totalItems.toString().slice(0, 2).padEnd(3, "+")
+              : totalItems}
           </div>
         </Link>
       </div>

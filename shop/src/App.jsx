@@ -4,6 +4,7 @@ import Header from "./components/header/Header";
 import Shop from "./components/shop/Shop";
 import Breadcrumbs from "./components/breadcrumb/Breadcrumbs";
 import SingleProduct from "./components/shop/SingleProduct";
+import Cart from "./components/cart/Cart";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/shop" element={<Shop />} />
         <Route path="/shop/:productname" element={<SingleProduct />} />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
     </>
   );

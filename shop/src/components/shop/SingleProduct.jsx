@@ -10,7 +10,10 @@ import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-
+import { LuShoppingCart } from "react-icons/lu";
+import { Button } from "@/components/ui/button";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../slice/cartSlice";
 const images = [
   {
     link: "https://swiperjs.com/demos/images/nature-1.jpg",
@@ -30,8 +33,12 @@ function SingleProduct() {
   const [thumbsSwiper, setThumbsSwiper] = useState(null); // Initialize to null
   const [activeIndex, setActiveIndex] = useState(0);
   const [value, setValue] = useState(0);
+  const dispatch = useDispatch();
   const handleSlideChange = (swiper) => {
     setActiveIndex(swiper.realIndex); // Update the active slide index
+  };
+  const handleCartChange = () => {
+    dispatch(addToCart(value));
   };
 
   return (
@@ -103,7 +110,7 @@ function SingleProduct() {
             Embodying the raw, wayward spirit of rock 'n' roll, the Kilburn
             portable active stereo speaker takes the unmistakable look and sound
             of Marshall, unplugs the chords, and takes the show on the road.
-            <span className="block "></span>
+            <span className="block mb-2"></span>
             Weighing in under 7 pounds, the Kilburn is a lightweight piece of
             vintage styled engineering. Setting the bar as one of the loudest
             speakers in its class, the Kilburn is a compact, stout-hearted hero
@@ -113,7 +120,8 @@ function SingleProduct() {
             personal preferences while the guitar-influenced leather strap
             enables easy and stylish travel.
           </p>
-          <div className="flex flex-col gap-4 ">
+          {/* QUANTITY */}
+          <div className="flex flex-col gap-4">
             <Label htmlFor="quantity">Quantity</Label>
             <Input
               type="number"
@@ -125,6 +133,18 @@ function SingleProduct() {
               max={30}
               className="w-[10%] lg:w-[20%]"
             />
+          </div>
+          {/* CART */}
+          <Button className="flex gap-4" onClick={handleCartChange}>
+            <LuShoppingCart className="w-5 h-5" />
+            <span className="text-lg font-semibold uppercase">Add To Cart</span>
+          </Button>
+          {/* CATEGORY */}
+          <div className="flex flex-col gap-3">
+            <p className="text-sm font-normal">Share:</p>
+            <p className="text-sm font-normal">
+              Category: <span className="text-black/80">Footwear</span>
+            </p>
           </div>
         </div>
       </div>
