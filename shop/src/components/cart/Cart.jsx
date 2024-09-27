@@ -61,7 +61,6 @@ function Cart() {
                   type="number"
                   variant="number"
                   value={value}
-                  min={1}
                   max={30}
                   onChange={setValue}
                 />

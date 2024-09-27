@@ -26,14 +26,14 @@ function Products() {
               <SelectValue placeholder="Default Sorting" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="light">Light</SelectItem>
-              <SelectItem value="dark">Dark</SelectItem>
-              <SelectItem value="system">System</SelectItem>
+              <SelectItem value="low">Price: Low to High</SelectItem>
+              <SelectItem value="high">Price: High to Low</SelectItem>
+              <SelectItem value="popular">Popularity</SelectItem>
             </SelectContent>
           </Select>
         </div>
         <div className="hidden lg:block">
-          <p>Showing Results</p>
+          <p>Showing {products.length} Results</p>
         </div>
       </div>
       <div className="py-12 px-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 lg:gap-10 2xl:grid-cols-4 md:gap-12 gap-10">

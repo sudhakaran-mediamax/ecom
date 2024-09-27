@@ -27,6 +27,7 @@ import { FaUser } from "react-icons/fa";
 import styles from "./header.module.css";
 import { Button } from "@/components/ui/button";
 import { useSelector } from "react-redux";
+import Login from "../login/Login";
 function Header() {
   const { totalItems } = useSelector((state) => state.cart);
   const StyledLink = styled.span`
@@ -105,12 +106,20 @@ function Header() {
               align="end"
               className={styles.DropdownMenuContent}
             >
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Wishlist</DropdownMenuItem>
-              <DropdownMenuItem>Settings</DropdownMenuItem>
-              <DropdownMenuItem>Logout</DropdownMenuItem>
+              {true ? (
+                <Link to={"/login"}>
+                  <DropdownMenuLabel>Login</DropdownMenuLabel>
+                </Link>
+              ) : (
+                <>
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>Profile</DropdownMenuItem>
+                  <DropdownMenuItem>Wishlist</DropdownMenuItem>
+                  <DropdownMenuItem>Settings</DropdownMenuItem>
+                  <DropdownMenuItem>Logout</DropdownMenuItem>
+                </>
+              )}
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
