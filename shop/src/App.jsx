@@ -5,7 +5,8 @@ import Shop from "./components/shop/Shop";
 import Breadcrumbs from "./components/breadcrumb/Breadcrumbs";
 import SingleProduct from "./components/shop/SingleProduct";
 import Cart from "./components/cart/Cart";
-import Login from "./components/login/Login";
+import Home from "./components/Home";
+import Account from "./components/account/Account";
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
       <Header />
       <Breadcrumbs />
       <Routes>
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/account" element={<Account />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/shop/:productname" element={<SingleProduct />} />
         <Route path="/cart" element={<Cart />} />

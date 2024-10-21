@@ -1,0 +1,9 @@
+label {
+  min-width: 120px;
+}
+#register_form {
+  & :not(.info) {
+    display: flex;
+    align-items: center;
+  }
+}
