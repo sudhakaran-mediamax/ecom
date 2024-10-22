@@ -1,4 +1,3 @@
-// cartSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const cartSlice = createSlice({
@@ -9,28 +8,34 @@ const cartSlice = createSlice({
   },
   reducers: {
     addToCart(state, action) {
-      const newTotal = state.totalItems + (action.payload ?? 1); // Calculate new total
-      const MAX_ITEMS = 75; // Maximum items allowed
+      const { id, quantity } = action.payload;
+      const existingItem = state.items.find((item) => item.id === id);
 
-      if (newTotal <= MAX_ITEMS) {
-        state.totalItems = newTotal; // Update total items only if within limit
-        console.log("Total items in cart:", state.totalItems);
+      if (existingItem) {
+        // Update existing item quantity
+        existingItem.quantity = quantity;
       } else {
-        console.warn(
-          `Cannot add ${action.payload} items. Limit is ${MAX_ITEMS}.`
-        ); // Log a warning
+        // Add new item
+        state.items.push({ id, quantity });
       }
+
+      // Recalculate total items
+      state.totalItems = state.items.reduce(
+        (total, item) => total + item.quantity,
+        0
+      );
+      console.log("Total items in cart:", state.totalItems);
+      console.log("items in cart:", state.items);
     },
     removeFromCart(state, action) {
-      const index = state.items.findIndex(
-        (item) => item.id === action.payload.id
-      );
-      if (index !== -1 || state.totalItems > 0) {
-        // state.items.splice(index, 1);
-        state.totalItems -= action.payload ?? 1; // Decrement total items only if greater than 0
-        console.log("Total items in cart:", state.totalItems);
-      }
+      const idToRemove = action.payload; // Get the id of the item to remove
+      state.items = state.items.filter((item) => item.id !== idToRemove); // Filter out the item
+      state.totalItems = state.items.reduce(
+        (total, item) => total + item.quantity,
+        0
+      ); // Recalculate total items
     },
+
     clearCart(state) {
       state.items = [];
       state.totalItems = 0; // Reset total items

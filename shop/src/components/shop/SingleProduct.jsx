@@ -1,19 +1,18 @@
-// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
-
-// Import required modules
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { LuShoppingCart } from "react-icons/lu";
 import { Button } from "@/components/ui/button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../slice/cartSlice";
+import { useParams } from "react-router-dom";
+
 const images = [
   {
     link: "https://swiperjs.com/demos/images/nature-1.jpg",
@@ -30,21 +29,39 @@ const images = [
 ];
 
 function SingleProduct() {
-  const [thumbsSwiper, setThumbsSwiper] = useState(null); // Initialize to null
+  const { productId } = useParams();
   const [activeIndex, setActiveIndex] = useState(0);
-  const [value, setValue] = useState(0);
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const dispatch = useDispatch();
+  const { items } = useSelector((state) => state.cart);
+  const [quantity, setQuantity] = useState({}); // Simplified state
+
   const handleSlideChange = (swiper) => {
-    setActiveIndex(swiper.realIndex); // Update the active slide index
+    setActiveIndex(swiper.realIndex);
   };
-  const handleCartChange = () => {
-    dispatch(addToCart(value));
+
+  const handleQuantityChange = (id, value) => {
+    setQuantity((prev) => ({
+      ...prev,
+      [id]: Math.max(1, Math.min(75, Number(value))), // Limit between 1 and 75
+    }));
+  };
+
+  const handleCartAddUpdate = (id) => {
+    const currentQuantity = quantity[id] || 1;
+    const existingItem = items.find((item) => item.id === productId);
+
+    if (existingItem && existingItem.quantity === quantity) {
+      console.log(`Quantity for ${productId} is unchanged. No update needed.`);
+      return;
+    }
+    dispatch(addToCart({ id: productId, quantity: Number(currentQuantity) }));
   };
 
   return (
     <div className="container mx-auto my-14 px-5">
       <div className="flex flex-col lg:flex-row lg:justify-between w-full h-full">
-        {/* images */}
+        {/* Images */}
         <div className="w-full lg:w-[50%] h-[55vh] xl:h-[700px] flex gap-3 justify-between overflow-hidden">
           <div className="relative w-[20%] md:w-[15%] h-full">
             <Swiper
@@ -57,27 +74,18 @@ function SingleProduct() {
               watchSlidesProgress={true}
               modules={[FreeMode, Navigation, Thumbs]}
               className="mySwiper w-full h-full relative"
-              onSlideChange={(e) => handleSlideChange(e)}
+              onSlideChange={handleSlideChange}
             >
-              {images.map((img, index) => {
-                return (
-                  <SwiperSlide
-                    before=""
-                    className={`${
-                      activeIndex === index ? "before:bg-black/40" : ""
-                    } w-full !h-fit relative before:absolute before:top-0 before:left-0 before:w-full before:h-full hover:before:bg-black/40 transition-all duration-300`}
-                    key={index}
-                  >
-                    <img src={img.link} alt="Nature" />
-                  </SwiperSlide>
-                );
-              })}
+              {images.map((img, index) => (
+                <SwiperSlide key={index}>
+                  <img src={img.link} alt={`Nature ${index + 1}`} />
+                </SwiperSlide>
+              ))}
             </Swiper>
           </div>
           <div className="w-[80%] md:w-[85%] h-full">
             <Swiper
               spaceBetween={10}
-              //   navigation={true}
               thumbs={{
                 swiper:
                   thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
@@ -87,21 +95,19 @@ function SingleProduct() {
               className="mySwiper2 w-full h-full"
               onSlideChange={handleSlideChange}
             >
-              {images.map((img, index) => {
-                return (
-                  <SwiperSlide key={index} className="w-full h-full ">
-                    <img
-                      src={img.link}
-                      alt="Nature 1"
-                      className="w-full h-full"
-                    />
-                  </SwiperSlide>
-                );
-              })}
+              {images.map((img, index) => (
+                <SwiperSlide key={index} className="w-full h-full">
+                  <img
+                    src={img.link}
+                    alt={`Nature ${index + 1}`}
+                    className="w-full h-full"
+                  />
+                </SwiperSlide>
+              ))}
             </Swiper>
           </div>
         </div>
-        {/* content */}
+        {/* Content */}
         <div className="w-full lg:w-[45%] px-16 flex flex-col gap-6 lg:gap-8">
           <h3 className="capitalize font-medium text-2xl xl:text-3xl ">
             Abra - Canvas Sneakers
@@ -116,30 +122,34 @@ function SingleProduct() {
             speakers in its class, the Kilburn is a compact, stout-hearted hero
             with a well-balanced audio which boasts a clear midrange and
             extended highs for a sound that is both articulate and pronounced.
-            The analogue knobs allow you to fine tune the controls to your
+            The analogue knobs allow you to fine-tune the controls to your
             personal preferences while the guitar-influenced leather strap
             enables easy and stylish travel.
           </p>
-          {/* QUANTITY */}
+          {/* Quantity */}
           <div className="flex flex-col gap-4">
             <Label htmlFor="quantity">Quantity</Label>
             <Input
               type="number"
-              variant="number" // Specify the variant
-              value={value}
-              onChange={setValue}
-              id="quantity"
-              min={0}
-              max={30}
+              variant="number"
+              value={quantity[productId] || Number(1)}
+              max={75}
+              min={1}
+              onChange={(newQuantity) =>
+                handleQuantityChange(productId, newQuantity)
+              }
               className="w-[10%] lg:w-[20%]"
             />
           </div>
-          {/* CART */}
-          <Button className="flex gap-4" onClick={handleCartChange}>
+          {/* Cart */}
+          <Button
+            className="flex gap-4"
+            onClick={() => handleCartAddUpdate(productId)}
+          >
             <LuShoppingCart className="w-5 h-5" />
             <span className="text-lg font-semibold uppercase">Add To Cart</span>
           </Button>
-          {/* CATEGORY */}
+          {/* Category */}
           <div className="flex flex-col gap-3">
             <p className="text-sm font-normal">Share:</p>
             <p className="text-sm font-normal">

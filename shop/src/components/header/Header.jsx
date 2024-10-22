@@ -27,7 +27,6 @@ import { FaUser } from "react-icons/fa";
 import styles from "./header.module.css";
 import { Button } from "@/components/ui/button";
 import { useSelector } from "react-redux";
-import Login from "../account/Login";
 function Header() {
   const { totalItems } = useSelector((state) => state.cart);
   const StyledLink = styled.span`

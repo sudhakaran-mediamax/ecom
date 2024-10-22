@@ -16,7 +16,7 @@ import { CgOptions } from "react-icons/cg";
 function Shop() {
   return (
     <>
-      <div className="flex flex-col gap-4 lg:flex-row lg:gap-0 lg:justify-between px-5 lg:px-10 pt-5 lg:pt-10">
+      <div className="flex flex-col gap-4 lg:flex-row lg:gap-0 lg:justify-between px-5 lg:px-10 py-7 lg:py-12">
         <div className="">
           <div className="hidden lg:block W-[25%]">
             <FilterProducts />

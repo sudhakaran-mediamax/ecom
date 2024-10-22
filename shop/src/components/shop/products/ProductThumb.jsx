@@ -7,9 +7,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { addToCart } from "../../../slice/cartSlice";
 function ProductThumb({ product }) {
   const dispatch = useDispatch();
-  const { totalItems } = useSelector((state) => state.cart);
+  const { items, totalItems } = useSelector((state) => state.cart);
   const handleCart = () => {
-    dispatch(addToCart());
+    dispatch(addToCart({ id: product.id, quantity: 1 }));
   };
   return (
     <>
@@ -17,7 +17,7 @@ function ProductThumb({ product }) {
         className="group hover:shadow-[0px_0px_10px_0px_rgba(0,0,0,0.3)] transition-all duration-500 overflow-hidden relative"
         key={product.id}
       >
-        <Link to={`/shop/${product.name}`}>
+        <Link to={`/shop/${product.id}`}>
           <div className="relative h-[300px] md:h-[400px]">
             <img
               src={product.image}

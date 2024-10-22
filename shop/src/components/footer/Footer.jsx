@@ -8,7 +8,7 @@ import { FaCcVisa } from "react-icons/fa6";
 import { FaCcMastercard } from "react-icons/fa6";
 import { FaCcPaypal } from "react-icons/fa";
 
-import "./footer.module.scss";
+import "./footer.scss";
 function Footer() {
   return (
     <footer className="w-full flex justify-between">
@@ -20,7 +20,7 @@ function Footer() {
           <FaInstagram />
         </div>
       </div>
-      <div className="w-[92%] bg-gray-200 py-10">
+      <div className="w-[92%] bg-black/5 py-10">
         <div className="w-[70%] mx-auto">
           <div className="flex justify-between">
             <div className="">
