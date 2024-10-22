@@ -12,6 +12,12 @@ import OrderHistory from "./OrderHistory";
 import RewardPoints from "./RewardPoints";
 import AccountReturns from "./AccountReturns";
 import Register from "./Register";
+import clsx from "clsx";
+import AboutUs from "../information/AboutUs";
+import DeliveryInfo from "../information/DeliveryInfo";
+import PrivacyPolicy from "../information/PrivacyPolicy";
+import TermsAndconditions from "../information/TermsAndconditions";
+import ContactUs from "../ContactUs/ContactUs";
 // Import other components similarly...
 
 function Account() {
@@ -49,6 +55,25 @@ function Account() {
     },
     { value: "newsletter", label: "Newsletter", comp: <Newsletter /> },
   ];
+  const tabs2 = [
+    { value: "about-us", label: "About Us", comp: <AboutUs /> },
+    {
+      value: "delivery-info",
+      label: "Delivery Information",
+      comp: <DeliveryInfo />,
+    },
+    {
+      value: "privacy-policy",
+      label: "Privacy Policy",
+      comp: <PrivacyPolicy />,
+    },
+    {
+      value: "terms",
+      label: "Terms & Conditions",
+      comp: <TermsAndconditions />,
+    },
+    { value: "contact-us", label: "Contact Us", comp: <ContactUs /> },
+  ];
 
   if (isUser) {
     tabs.unshift(
@@ -62,26 +87,54 @@ function Account() {
   const [selectedTab, setSelectedTab] = useState(tabs[0]?.value || "");
 
   // Find the component based on the selectedTab
-  const currentTab = tabs.find((tab) => tab.value === selectedTab);
+  const currentTab = [...tabs, ...tabs2].find(
+    (tab) => tab.value === selectedTab
+  );
 
   return (
     <div className="container mx-auto my-10">
-      <Tabs defaultValue={selectedTab} className="flex gap-10">
-        <TabsList className="w-[350px]">
-          <h3 className="px-3 mb-3 text-md font-medium text-black">Home</h3>
-          {tabs.map((tab) => (
-            <TabsTrigger
-              key={tab.value}
-              value={tab.value}
-              id={accountTabs}
-              onClick={() => setSelectedTab(tab.value)}
-            >
-              {tab.label}
-            </TabsTrigger>
-          ))}
-        </TabsList>
-        <TabsContent value={selectedTab} className="w-full">
-          {currentTab?.comp || null} {/* Render the corresponding component */}
+      <Tabs defaultValue={selectedTab} className="flex justify-between">
+        <div className="w-[20%]">
+          <TabsList className="">
+            <h3 className="px-3 mb-3 text-md font-medium text-black">Home</h3>
+            {tabs.map((tab) => (
+              <TabsTrigger
+                key={tab.value}
+                value={tab.value}
+                onClick={() => setSelectedTab(tab.value)}
+                className={clsx(
+                  "opacity-50 hover:opacity-100 transition-all",
+                  tab.value === selectedTab && "opacity-100"
+                )}
+              >
+                {tab.label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+          <TabsList className="mt-6">
+            <h3 className="px-3 mb-3 text-md font-medium text-black">
+              Information
+            </h3>
+            {tabs2.map((tab) => (
+              <TabsTrigger
+                key={tab.value}
+                value={tab.value}
+                onClick={() => setSelectedTab(tab.value)}
+                className={clsx(
+                  "opacity-50 hover:opacity-100 transition-all",
+                  tab.value === selectedTab && "opacity-100"
+                )}
+              >
+                {tab.label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </div>
+        <TabsContent value={selectedTab} className="w-[75%] relative">
+          <div className="w-full absolute top-0 left-0">
+            {currentTab?.comp || null}{" "}
+            {/* Render the corresponding component */}
+          </div>
         </TabsContent>
       </Tabs>
     </div>

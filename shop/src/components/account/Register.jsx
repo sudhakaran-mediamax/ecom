@@ -10,8 +10,8 @@ function Register() {
       <div className="w-full">
         <p className="w-full text-sm text-black/40 mb-4">
           If you already have an account with us, please login at the{" "}
-          <Link to={"/login"} className="text-black/80">
-            login page
+          <Link to={"/login"} className="text-black/80 underline">
+            login page.
           </Link>
         </p>
         <form id="register_form" className="flex flex-col gap-6">
@@ -24,7 +24,7 @@ function Register() {
             <Input
               name="firstname"
               placeholder="Enter firstname"
-              className="px-0 mt-3"
+              className="px-3 border border-black/10"
               type="email"
               required
             />
@@ -34,7 +34,7 @@ function Register() {
             <Input
               name="lastname"
               placeholder="Enter lastname"
-              className="px-0 mt-3"
+              className="px-3 border border-black/10"
               type="email"
               required
             />
@@ -43,9 +43,20 @@ function Register() {
             <label htmlFor="email">Email</label>
             <Input
               name="email"
-              placeholder="Enter Your Email"
-              className="px-0 mt-3"
+              placeholder="Enter Email"
+              className="px-3 border border-black/10"
               type="email"
+              required
+            />
+          </div>
+          <div className="">
+            <label htmlFor="mobile">Mobile</label>
+            <Input
+              name="mobile"
+              placeholder="Enter Mobile"
+              className="px-3 border border-black/10"
+              type="text"
+              maxLength={10}
               required
             />
           </div>
@@ -57,8 +68,8 @@ function Register() {
             <label htmlFor="password">Password</label>
             <Input
               name="password"
-              placeholder="Enter Your Password"
-              className="px-0 mt-3"
+              placeholder="Enter Password"
+              className="px-3 border border-black/10"
               type="password"
               required
             />
@@ -67,8 +78,8 @@ function Register() {
             <label htmlFor="cpassword">Confirm Password</label>
             <Input
               name="cpassword"
-              placeholder="Enter Your Password Again"
-              className="px-0 mt-3"
+              placeholder="Enter Password Again"
+              className="px-3 border border-black/10"
               type="password"
               required
             />
