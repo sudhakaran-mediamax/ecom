@@ -102,32 +102,34 @@ function Cart() {
                 key={item.id}
                 className="border-b border-black/30 py-8 flex flex-wrap items-center gap-4"
               >
-                <AlertDialog>
-                  <AlertDialogTrigger>Open</AlertDialogTrigger>
-                  <AlertDialogContent>
-                    <AlertDialogHeader>
-                      <AlertDialogTitle>
-                        Are you absolutely sure?
-                      </AlertDialogTitle>
-                      <AlertDialogDescription>
-                        This action cannot be undone. This will permanently
-                        delete your account and remove your data from our
-                        servers.
-                      </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction>Continue</AlertDialogAction>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
-
                 <Button
                   variant="ghost"
                   className="group"
-                  onClick={() => handleRemoveFromCart(item.id)}
+                  // onClick={() => handleRemoveFromCart(item.id)}
                 >
-                  <CgClose className="w-4 h-4 transition-transform group-hover:rotate-180 ease-in duration-300" />
+                  <AlertDialog>
+                    <AlertDialogTrigger>
+                      {" "}
+                      <CgClose className="w-4 h-4 transition-transform group-hover:rotate-180 ease-in duration-300" />
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          This action cannot be undone. This will permanently
+                          delete this product from your cart.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction
+                          onClick={() => handleRemoveFromCart(item.id)}
+                        >
+                          Continue
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
                 </Button>
                 {/* product image */}
                 <div className="flex flex-grow md:flex-grow-0 justify-center items-center">
