@@ -22,6 +22,7 @@ const buttonVariants = cva(
         link: "text-slate-900 underline-offset-4 hover:underline dark:text-slate-50 ",
         circle:
           "bg-slate-900 text-slate-50 hover:bg-slate-900/90 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-slate-50/90 rounded-full",
+        none: "bg-transparent outline-none border-none",
       },
       size: {
         default: "h-10 px-4 py-2",

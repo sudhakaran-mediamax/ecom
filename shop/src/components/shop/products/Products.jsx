@@ -34,7 +34,7 @@ function Products() {
 
   return (
     <div>
-      <div className="flex justify-between w-full">
+      <div className="flex justify-between w-full overflow-hidden">
         <div className="">
           <Select>
             <SelectTrigger className="w-[180px]">

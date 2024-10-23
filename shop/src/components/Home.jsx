@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { EffectFade } from "swiper/modules";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
 function Home() {
   return (
     <>
@@ -38,6 +39,16 @@ function Home() {
             </div>
           </SwiperSlide>
         </Swiper>
+        <div className="py-20">
+          <Button
+            onClick={() => {
+              console.log("clicked button");
+              toast("toast");
+            }}
+          >
+            Click
+          </Button>
+        </div>
       </div>
     </>
   );

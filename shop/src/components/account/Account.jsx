@@ -1,5 +1,5 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import React, { useId, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Login from "./Login";
 import Newsletter from "./Newsletter";
 import Transactions from "./Transactions";
@@ -18,43 +18,32 @@ import DeliveryInfo from "../information/DeliveryInfo";
 import PrivacyPolicy from "../information/PrivacyPolicy";
 import TermsAndconditions from "../information/TermsAndconditions";
 import ContactUs from "../ContactUs/ContactUs";
-// Import other components similarly...
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 function Account() {
-  const accountTabs = useId();
-  const isUser = true;
+  const isUser = false;
   const tabs = [
     { value: "my-account", label: "My Account", comp: <MyAccount /> },
-    {
-      value: "address-book",
-      label: "Address Book",
-      comp: <AddressBook />,
-    },
+    { value: "address-book", label: "Address Book", comp: <AddressBook /> },
     { value: "wish-list", label: "Wish List", comp: <WishList /> },
-    {
-      value: "order-history",
-      label: "Order History",
-      comp: <OrderHistory />,
-    },
+    { value: "order-history", label: "Order History", comp: <OrderHistory /> },
     { value: "downloads", label: "Downloads", comp: <Downloads /> },
     {
       value: "recurring-payments",
       label: "Recurring Payments",
       comp: <RecurringPayments />,
     },
-    {
-      value: "reward-points",
-      label: "Reward Points",
-      comp: <RewardPoints />,
-    },
+    { value: "reward-points", label: "Reward Points", comp: <RewardPoints /> },
     { value: "returns", label: "Returns", comp: <AccountReturns /> },
-    {
-      value: "transactions",
-      label: "Transactions",
-      comp: <Transactions />,
-    },
+    { value: "transactions", label: "Transactions", comp: <Transactions /> },
     { value: "newsletter", label: "Newsletter", comp: <Newsletter /> },
   ];
+
   const tabs2 = [
     { value: "about-us", label: "About Us", comp: <AboutUs /> },
     {
@@ -85,23 +74,30 @@ function Account() {
   }
 
   const [selectedTab, setSelectedTab] = useState(tabs[0]?.value || "");
-
-  // Find the component based on the selectedTab
   const currentTab = [...tabs, ...tabs2].find(
     (tab) => tab.value === selectedTab
   );
 
+  const handleTabClick = (tabValue, e) => {
+    setSelectedTab(tabValue);
+    e.stopPropagation(); // Prevent the event from bubbling up to the Accordion
+  };
+
   return (
     <div className="container mx-auto my-10">
-      <Tabs defaultValue={selectedTab} className="flex justify-between">
-        <div className="w-[20%]">
-          <TabsList className="">
+      <Tabs
+        defaultValue={selectedTab}
+        className="flex justify-between gap-16 flex-col-reverse lg:gap-0 lg:flex-row"
+      >
+        {/* LIST IN BIG SCREEN */}
+        <div className="hidden lg:w-[20%] lg:block">
+          <TabsList className="border border-black/15">
             <h3 className="px-3 mb-3 text-md font-medium text-black">Home</h3>
             {tabs.map((tab) => (
               <TabsTrigger
                 key={tab.value}
                 value={tab.value}
-                onClick={() => setSelectedTab(tab.value)}
+                onClick={(e) => handleTabClick(tab.value, e)}
                 className={clsx(
                   "opacity-50 hover:opacity-100 transition-all",
                   tab.value === selectedTab && "opacity-100"
@@ -111,7 +107,7 @@ function Account() {
               </TabsTrigger>
             ))}
           </TabsList>
-          <TabsList className="mt-6">
+          <TabsList className="mt-6 border border-black/15">
             <h3 className="px-3 mb-3 text-md font-medium text-black">
               Information
             </h3>
@@ -119,7 +115,7 @@ function Account() {
               <TabsTrigger
                 key={tab.value}
                 value={tab.value}
-                onClick={() => setSelectedTab(tab.value)}
+                onClick={(e) => handleTabClick(tab.value, e)}
                 className={clsx(
                   "opacity-50 hover:opacity-100 transition-all",
                   tab.value === selectedTab && "opacity-100"
@@ -130,8 +126,55 @@ function Account() {
             ))}
           </TabsList>
         </div>
-        <TabsContent value={selectedTab} className="w-[75%] relative">
-          <div className="w-full absolute top-0 left-0">
+
+        {/* LIST IN MOBILE VIEW */}
+        <div className="block lg:hidden">
+          <Accordion type="single" collapsible>
+            <AccordionItem value="item-1">
+              <AccordionTrigger>Home</AccordionTrigger>
+              <AccordionContent>
+                <TabsList>
+                  {tabs.map((tab) => (
+                    <TabsTrigger
+                      key={tab.value}
+                      value={tab.value}
+                      onClick={(e) => handleTabClick(tab.value, e)}
+                      className={clsx(
+                        "opacity-50 hover:opacity-100 transition-all",
+                        tab.value === selectedTab && "opacity-100"
+                      )}
+                    >
+                      {tab.label}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+              </AccordionContent>
+            </AccordionItem>
+            <AccordionItem value="item-2" className="mt-6">
+              <AccordionTrigger>Information</AccordionTrigger>
+              <AccordionContent>
+                <TabsList>
+                  {tabs2.map((tab) => (
+                    <TabsTrigger
+                      key={tab.value}
+                      value={tab.value}
+                      onClick={(e) => handleTabClick(tab.value, e)}
+                      className={clsx(
+                        "opacity-50 hover:opacity-100 transition-all",
+                        tab.value === selectedTab && "opacity-100"
+                      )}
+                    >
+                      {tab.label}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
+
+        <TabsContent value={selectedTab} className="w-full lg:w-[75%] relative">
+          <div className="w-full lg:absolute top-0 left-0">
             {currentTab?.comp || null}{" "}
             {/* Render the corresponding component */}
           </div>

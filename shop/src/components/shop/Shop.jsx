@@ -21,7 +21,7 @@ function Shop() {
           <div className="hidden lg:block W-[25%]">
             <FilterProducts />
           </div>
-          <div className="block lg:hidden ">
+          <div className="block ps-4 lg:hidden lg:ps-0">
             <Drawer direction="left">
               <DrawerTrigger>
                 <div className="flex gap-2 items-center">
@@ -29,7 +29,10 @@ function Shop() {
                   <p className="">Filter</p>
                 </div>
               </DrawerTrigger>
-              <DrawerContent className="w-[60%] lg:w-[unset]" data-vaul-no-drag>
+              <DrawerContent
+                className="w-[60%] ps-4 lg:w-[unset] lg:ps-0"
+                data-vaul-no-drag
+              >
                 <DrawerHeader>
                   <DrawerClose className="mb-6 w-fit absolute top-5 right-5 ">
                     <CgClose className="w-6 h-6 transition-transform hover:rotate-180 ease-in duration-300" />

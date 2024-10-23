@@ -25,8 +25,9 @@ import styled from "styled-components";
 import { IoSearch } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";
 import styles from "./header.module.css";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { useSelector } from "react-redux";
+import clsx from "clsx";
 function Header() {
   const { totalItems } = useSelector((state) => state.cart);
   const StyledLink = styled.span`
@@ -38,13 +39,16 @@ function Header() {
       margin-left: 10px;
       color: rgba(0, 0, 0, 0.6); /* Change color to gray on hover */
     }
+    @media screen and (max-width: 640px) {
+      font-size: 1.1rem;
+    }
   `;
 
   return (
     <header className="relative w-full z-50 p-6 md:py-12 md:px-14 flex justify-between ">
       {/* left */}
       <div className="flex items-center gap-12 justify-between w-full md:w-fit">
-        <div className="">
+        <div className="w-[100px] sm:w-[unset]">
           <img src="/logo.png" alt="" />
         </div>
         <div className=" w-[1px] h-full bg-black/20 hidden md:block"></div>
@@ -56,13 +60,13 @@ function Header() {
                 <p className="">Menu</p>
               </div>
             </DrawerTrigger>
-            <DrawerContent className="w-[40%] md:w-[unset]">
+            <DrawerContent className="w-[100vw] sm:w-[30vw] lg:w-[unset]">
               <DrawerHeader>
                 <DrawerClose className="mb-6 w-fit absolute top-5 right-5 ">
-                  <CgClose className="w-6 h-6 transition-transform hover:rotate-180 ease-in duration-300" />
+                  <CgClose className="w-5 h-5 sm:w-6 sm:h-6 transition-transform hover:rotate-180 ease-in duration-300" />
                 </DrawerClose>
-                <DrawerTitle className="flex flex-col gap-8 mt-6 border-t border-black/10 pt-10">
-                  <Link>
+                <DrawerTitle className="flex flex-col gap-6 sm:gap-8 mt-6 border-t border-black/10 pt-10">
+                  <Link to={"/"}>
                     <StyledLink>Home</StyledLink>
                   </Link>
                   <Link>
@@ -71,7 +75,10 @@ function Header() {
                   <Link to={"/shop"}>
                     <StyledLink>Shop</StyledLink>
                   </Link>
-                  <Link>
+                  <Link to={"/cart"} className="md:hidden">
+                    <StyledLink>Cart</StyledLink>
+                  </Link>
+                  <Link to={"/account"}>
                     <StyledLink>Account</StyledLink>
                   </Link>
                   <Link>
@@ -79,11 +86,21 @@ function Header() {
                   </Link>
                 </DrawerTitle>
                 {/* DESCRIPTION */}
-                {/* <DrawerDescription>
-                </DrawerDescription> */}
+                <DrawerDescription></DrawerDescription>
               </DrawerHeader>
               {/* footer */}
-              <DrawerFooter></DrawerFooter>
+              <DrawerFooter>
+                {true ? (
+                  <Link
+                    to={"/account"}
+                    className={clsx(buttonVariants({ variant: "default" }))}
+                  >
+                    Login
+                  </Link>
+                ) : (
+                  <Button>Logout</Button>
+                )}
+              </DrawerFooter>
             </DrawerContent>
           </Drawer>
         </div>

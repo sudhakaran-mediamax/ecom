@@ -25,7 +25,7 @@ function Breadcrumbs() {
     <div
       className={`${isHome == "/" ? "hidden" : ""} w-full py-12 bg-black/10`}
     >
-      <div className="container mx-auto w-full flex flex-col justify-between md:flex-row gap-2 md:gap-0 px-4 md:px-0">
+      <div className="container mx-auto w-[90%] lg:w-full flex flex-col justify-between md:flex-row gap-2 md:gap-0 px-4 md:px-0">
         <div className="uppercase font-semibold md:text-md sm:text-sm">
           Home
         </div>

@@ -8,7 +8,6 @@ import Cart from "./components/cart/Cart";
 import Home from "./components/Home";
 import Account from "./components/account/Account";
 import Footer from "./components/footer/Footer";
-
 function App() {
   return (
     <>
@@ -17,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/account" element={<Account />} />
+        <Route path="/account/:id" element={<Account />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/shop/:productId" element={<SingleProduct />} />
         <Route path="/cart" element={<Cart />} />

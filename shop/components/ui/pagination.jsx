@@ -8,7 +8,10 @@ const Pagination = ({ className, ...props }) => (
   <nav
     role="navigation"
     aria-label="pagination"
-    className={cn("mx-auto flex w-full justify-end", className)}
+    className={cn(
+      "mx-auto flex w-full justify-center md:justify-end",
+      className
+    )}
     {...props}
   />
 );
@@ -34,7 +37,7 @@ const PaginationLink = ({ className, active, size = "icon", ...props }) => (
       aria-current={active ? "page" : undefined}
       className={cn(
         buttonVariants({
-          variant: active ? "default" : "link",
+          variant: active ? "none" : "ghost",
           size,
         }),
         className

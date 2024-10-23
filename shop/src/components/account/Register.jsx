@@ -10,7 +10,7 @@ function Register() {
       <div className="w-full">
         <p className="w-full text-sm text-black/40 mb-4">
           If you already have an account with us, please login at the{" "}
-          <Link to={"/login"} className="text-black/80 underline">
+          <Link to={"/account"} className="text-black/80 underline">
             login page.
           </Link>
         </p>

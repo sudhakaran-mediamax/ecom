@@ -5,6 +5,7 @@ const cartSlice = createSlice({
   initialState: {
     items: [],
     totalItems: 0,
+    status: false,
   },
   reducers: {
     addToCart(state, action) {
@@ -14,9 +15,11 @@ const cartSlice = createSlice({
       if (existingItem) {
         // Update existing item quantity
         existingItem.quantity = quantity;
+        state.status = true;
       } else {
         // Add new item
         state.items.push({ id, quantity });
+        state.status = true;
       }
 
       // Recalculate total items
@@ -24,6 +27,7 @@ const cartSlice = createSlice({
         (total, item) => total + item.quantity,
         0
       );
+
       console.log("Total items in cart:", state.totalItems);
       console.log("items in cart:", state.items);
     },

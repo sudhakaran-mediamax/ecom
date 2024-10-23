@@ -11,19 +11,19 @@ import { FaCcPaypal } from "react-icons/fa";
 import "./footer.scss";
 function Footer() {
   return (
-    <footer className="w-full flex justify-between">
-      <div className="w-[8%] flex justify-center items-center bg-white">
-        <div className="flex flex-col gap-8">
+    <footer className="w-full flex flex-col-reverse lg:flex-row justify-between">
+      <div className="w-full py-8 lg:py-0 lg:w-[8%] flex justify-center items-center bg-white">
+        <div className="flex lg:flex-col gap-8">
           <FaFacebookF />
           <FaXTwitter />
           <FaYoutube />
           <FaInstagram />
         </div>
       </div>
-      <div className="w-[92%] bg-black/5 py-10">
-        <div className="w-[70%] mx-auto">
-          <div className="flex justify-between">
-            <div className="">
+      <div className="w-full lg:w-[92%] bg-black/5 py-10">
+        <div className="w-[90%] lg:w-[70%] mx-auto">
+          <div className="flex gap-6 md:gap-0 justify-between flex-wrap">
+            <div className="w-full sm:w-[unset] ">
               <h3 className="font-medium text-lg">Store Information</h3>
               <p className="text-sm text-black/60 mt-5 leading-loose">
                 Fortsi - Fashion Store <br />
@@ -33,7 +33,7 @@ function Footer() {
                 sales@yourcompany.com
               </p>
             </div>
-            <div className="">
+            <div className="w-full sm:w-[unset]">
               <h3 className="font-medium text-lg">Information</h3>
               <div className="flex flex-col gap-3 text-sm mt-5">
                 <Link>About Us</Link>
@@ -43,7 +43,7 @@ function Footer() {
                 <Link>Contact Us</Link>
               </div>
             </div>
-            <div className="">
+            <div className="w-full sm:w-[unset]">
               <h3 className="font-medium text-lg">My Account</h3>
               <div className="flex flex-col gap-3 text-sm mt-5">
                 <Link>My Account</Link>
@@ -53,7 +53,7 @@ function Footer() {
                 <Link>Returns</Link>
               </div>
             </div>
-            <div className="">
+            <div className="w-full sm:w-[unset]">
               <h3 className="font-medium text-lg">Payment Method</h3>
               <div className="flex gap-5 mt-5">
                 <FaCcVisa className="w-6 h-6" />
@@ -62,15 +62,15 @@ function Footer() {
               </div>
             </div>
           </div>
-          <Separator className="bg-black/30 mt-14 mb-8" />
-          <div className="flex justify-between items-center">
-            <div className="flex gap-4 items-center">
+          <Separator className="bg-black/30 mt-12 md:mt-14 mb-5 lg:mb-8" />
+          <div className="flex flex-col gap-3 md:gap-0 md:flex-row justify-between items-center">
+            <div className="flex flex-col sm:flex-row gap-4 items-center">
               <div className="w-[7rem] h-16 flex items-center justify-center">
                 <img src="/logo.png" alt="" />
               </div>
               <Separator
                 orientation={"vertical"}
-                className="bg-black/70 h-14"
+                className="hidden sm:block bg-black/70 h-14"
               />
               <p className="text-sm opacity-80">2024 - All Rights Reserved.</p>
             </div>

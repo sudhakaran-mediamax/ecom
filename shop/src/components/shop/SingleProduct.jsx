@@ -12,7 +12,6 @@ import { Button } from "@/components/ui/button";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../slice/cartSlice";
 import { useParams } from "react-router-dom";
-
 const images = [
   {
     link: "https://swiperjs.com/demos/images/nature-1.jpg",
@@ -35,6 +34,8 @@ function SingleProduct() {
   const dispatch = useDispatch();
   const { items } = useSelector((state) => state.cart);
   const [quantity, setQuantity] = useState({}); // Simplified state
+  const cartStatus = useSelector((state) => state.cart.status);
+  // Show toast notification based on cart status
 
   const handleSlideChange = (swiper) => {
     setActiveIndex(swiper.realIndex);
@@ -109,7 +110,7 @@ function SingleProduct() {
         </div>
         {/* Content */}
         <div className="w-full lg:w-[45%] px-16 flex flex-col gap-6 lg:gap-8">
-          <h3 className="capitalize font-medium text-2xl xl:text-3xl ">
+          <h3 className="capitalize font-medium text-2xl xl:text-3xl">
             Abra - Canvas Sneakers
           </h3>
           <p className="text-sm leading-relaxed text-black/70">
