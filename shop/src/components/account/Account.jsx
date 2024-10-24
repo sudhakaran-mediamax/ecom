@@ -1,5 +1,12 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React, { useEffect, useState } from "react";
+import clsx from "clsx";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import Login from "./Login";
 import Newsletter from "./Newsletter";
 import Transactions from "./Transactions";
@@ -12,18 +19,11 @@ import OrderHistory from "./OrderHistory";
 import RewardPoints from "./RewardPoints";
 import AccountReturns from "./AccountReturns";
 import Register from "./Register";
-import clsx from "clsx";
 import AboutUs from "../information/AboutUs";
 import DeliveryInfo from "../information/DeliveryInfo";
 import PrivacyPolicy from "../information/PrivacyPolicy";
 import TermsAndconditions from "../information/TermsAndconditions";
 import ContactUs from "../ContactUs/ContactUs";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 
 function Account() {
   const isUser = false;
@@ -87,8 +87,16 @@ function Account() {
     <div className="container mx-auto my-10">
       <Tabs
         defaultValue={selectedTab}
-        className="flex justify-between gap-16 flex-col-reverse lg:gap-0 lg:flex-row"
+        className="flex justify-between gap-16 flex-col lg:gap-0 lg:flex-row-reverse relative"
       >
+        <div className="w-full lg:w-[75%] relative min-h-[200px]">
+          <TabsContent value={selectedTab}>
+            <div className="w-full relative lg:absolute lg:top-0 lg:left-0">
+              {currentTab?.comp || null}
+              {/* Render the corresponding component */}
+            </div>
+          </TabsContent>
+        </div>
         {/* LIST IN BIG SCREEN */}
         <div className="hidden lg:w-[20%] lg:block">
           <TabsList className="border border-black/15">
@@ -129,6 +137,7 @@ function Account() {
 
         {/* LIST IN MOBILE VIEW */}
         <div className="block lg:hidden">
+          {/* <TabsList> */}
           <Accordion type="single" collapsible>
             <AccordionItem value="item-1">
               <AccordionTrigger>Home</AccordionTrigger>
@@ -138,7 +147,10 @@ function Account() {
                     <TabsTrigger
                       key={tab.value}
                       value={tab.value}
-                      onClick={(e) => handleTabClick(tab.value, e)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleTabClick(tab.value, e);
+                      }}
                       className={clsx(
                         "opacity-50 hover:opacity-100 transition-all",
                         tab.value === selectedTab && "opacity-100"
@@ -158,7 +170,10 @@ function Account() {
                     <TabsTrigger
                       key={tab.value}
                       value={tab.value}
-                      onClick={(e) => handleTabClick(tab.value, e)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleTabClick(tab.value, e);
+                      }}
                       className={clsx(
                         "opacity-50 hover:opacity-100 transition-all",
                         tab.value === selectedTab && "opacity-100"
@@ -171,14 +186,8 @@ function Account() {
               </AccordionContent>
             </AccordionItem>
           </Accordion>
+          {/* </TabsList> */}
         </div>
-
-        <TabsContent value={selectedTab} className="w-full lg:w-[75%] relative">
-          <div className="w-full lg:absolute top-0 left-0">
-            {currentTab?.comp || null}{" "}
-            {/* Render the corresponding component */}
-          </div>
-        </TabsContent>
       </Tabs>
     </div>
   );
